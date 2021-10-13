@@ -1,0 +1,24 @@
+service: lambda
+
+provider:
+  name: aws
+  runtime: java11
+  profile: serverless-admin
+  region: us-east-2
+  timeout: 10
+  memorySize: 1024
+
+package:
+  artifact: target/lambda.jar
+
+functions:
+  simpleLambda:
+    handler: com.lambda.demo.SimpleLambda
+    environment:
+      MESSAGE: Duke42
+  simpleHttp:
+    handler: com.lambda.demo.SimpleHttpHandler
+    events:
+      - http:
+          method: POST
+          path: /simple
